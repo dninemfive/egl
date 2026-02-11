@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36518.9 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "egl", "egl\egl.csproj", "{FD52F733-B94F-423E-A813-BE4B3604FCF8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "egl.core", "egl\egl.core.csproj", "{FD52F733-B94F-423E-A813-BE4B3604FCF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "egl.viz", "egl.viz\egl.viz.csproj", "{78E74F17-B7F3-48EF-B712-A23C111196B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{FD52F733-B94F-423E-A813-BE4B3604FCF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD52F733-B94F-423E-A813-BE4B3604FCF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD52F733-B94F-423E-A813-BE4B3604FCF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78E74F17-B7F3-48EF-B712-A23C111196B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78E74F17-B7F3-48EF-B712-A23C111196B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78E74F17-B7F3-48EF-B712-A23C111196B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78E74F17-B7F3-48EF-B712-A23C111196B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

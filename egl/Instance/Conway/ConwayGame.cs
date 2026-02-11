@@ -1,4 +1,4 @@
-﻿namespace d9.egl.Instance;
+﻿namespace d9.egl.Instance.Conway;
 public class ConwayGame(ConwayReplicationRule rule)
 {
     public ConwayReplicationRule Rule => rule;
