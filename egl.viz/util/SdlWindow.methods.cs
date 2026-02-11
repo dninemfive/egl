@@ -16,10 +16,6 @@ public partial class SdlWindow
             SDLEventType.WindowCloseRequested => e.Window.WindowID == WindowId,
             _ => false
         };
-    public bool SetColor(byte r, byte g, byte b, byte a = 255)
-        => SDL.SetRenderDrawColor(_renderer, r, g, b, a);
-    public bool RenderPoint(float x, float y)
-        => SDL.RenderPoint(_renderer, x, y);
     public bool Pump()
     {
         SDL.PumpEvents();
@@ -28,8 +24,4 @@ public partial class SdlWindow
                 return false;
         return true;
     }
-    public bool RenderClear()
-        => SDL.RenderClear(_renderer);
-    public bool RenderPresent()
-        => SDL.RenderPresent(_renderer);
 }
