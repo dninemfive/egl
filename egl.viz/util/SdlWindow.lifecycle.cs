@@ -21,13 +21,13 @@ public partial class SdlWindow
         SDLWindowFlags windowFlags = SDLWindowFlags.Resizable)
     {
         if (!SDL.Init((uint)initFlags))
-            throw LogAndMakeException("initializing SDL", SDLLogCategory.System, title, width, height, initFlags, windowFlags);
+            throw LogAndMakeException("initializing SDL", SDLLogCategory.System, initFlags);
         _window = SDL.CreateWindow(title, width, height, (ulong)windowFlags);
         if(_window.IsNull)
-            throw LogAndMakeException("creating window", SDLLogCategory.Application, title, width, height, initFlags, windowFlags);
-        _renderer = SDL.CreateRenderer(_window, title);
-        //if (_renderer.IsNull)
-        //    throw LogAndMakeException("creating renderer", SDLLogCategory.Application, "renderer", width, height, initFlags, windowFlags);
+            throw LogAndMakeException("creating window", SDLLogCategory.Application, title, width, height, windowFlags);
+        _renderer = SDL.CreateRenderer(_window, (byte)default);
+        if (_renderer.IsNull)
+            throw LogAndMakeException("creating renderer", SDLLogCategory.Application);
     }
     #endregion initialization
     #region disposal

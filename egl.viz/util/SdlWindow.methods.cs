@@ -28,4 +28,6 @@ public partial class SdlWindow
                 return false;
         return true;
     }
+    public bool RenderClear()
+        => SDL.RenderClear(_renderer);
 }

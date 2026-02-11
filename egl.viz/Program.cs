@@ -11,7 +11,9 @@ internal class Program
         window.SetColor(255, 255, 255);
         while (window.Pump())
         {
-            window.RenderPoint(0.25f, 0.25f);
+            window.SetColor(255, 0, 255);
+            // window.RenderPoint(0.25f, 0.25f);
+            window.RenderClear();
         }
     }
 }
