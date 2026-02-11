@@ -1,25 +1,31 @@
 ﻿using d9.utl;
-using SDL3;
+using Hexa.NET.SDL3;
 
 namespace egl.viz.util;
 public partial class SdlWindow
 {
-    public bool SetRenderDrawColor(byte r, byte g, byte b, byte a)
-        => SDL.SetRenderDrawColor(_renderer, r, g, b, a);
-    public static bool PollEvent(out SDL.Event e)
-        => SDL.PollEvent(out e);
-    public bool RenderClear()
-        => SDL.RenderClear(_renderer);
-    public bool RenderPresent()
-        => SDL.RenderPresent(_renderer);
-    public bool RenderLoop()
+    public static bool PollEvent(out SDLEvent e)
     {
-        bool result = true;
-        while (PollEvent(out SDL.Event e))
-            if ((SDL.EventType)e.Type == SDL.EventType.Quit)
-                result = false;
-        RenderClear();
-        RenderPresent();
-        return result;
+        e = default;
+        return SDL.PollEvent(ref e);
+    }
+    public bool ShouldCloseFor(SDLEvent e)
+        => (SDLEventType)e.Type switch
+        {
+            SDLEventType.Quit or SDLEventType.Terminating => true,
+            SDLEventType.WindowCloseRequested => e.Window.WindowID == WindowId,
+            _ => false
+        };
+    public bool SetColor(byte r, byte g, byte b, byte a = 255)
+        => SDL.SetRenderDrawColor(_renderer, r, g, b, a);
+    public bool RenderPoint(float x, float y)
+        => SDL.RenderPoint(_renderer, x, y);
+    public bool Pump()
+    {
+        SDL.PumpEvents();
+        while (PollEvent(out SDLEvent e))
+            if (ShouldCloseFor(e))
+                return false;
+        return true;
     }
 }
