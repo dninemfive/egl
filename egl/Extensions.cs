@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace d9.egl;
+﻿namespace d9.egl.core;
 public static class Extensions
 {
     public static IEnumerable<(int x, int y)> AllPoints<T>(this T[,] array)

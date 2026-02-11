@@ -1,6 +1,6 @@
 ﻿using Hexa.NET.SDL3;
 
-namespace egl.viz.util;
+namespace d9.egl.viz.util;
 public partial class SdlRenderer(SDLRendererPtr ptr)
 {
     private readonly SDLRendererPtr _renderer = ptr;

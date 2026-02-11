@@ -1,5 +1,6 @@
-﻿using d9.egl.Interface;
-namespace d9.egl.Instance.Conway;
+﻿using d9.egl.core.Interface;
+
+namespace d9.egl.core.Instance.Conway;
 public class ConwayReplicationRule(IDictionary<int, bool> rule)
     : IReplicationRule<bool>
 {

@@ -1,6 +1,6 @@
-﻿using d9.egl.Interface;
+﻿using d9.egl.core.Interface;
 
-namespace d9.egl.Instance.Conway;
+namespace d9.egl.core.Instance.Conway;
 public class ConwayNeighborGetter
     : INeighborGetter<bool[,], (int x, int y), bool>
 {
