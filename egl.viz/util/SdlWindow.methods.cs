@@ -30,4 +30,6 @@ public partial class SdlWindow
     }
     public bool RenderClear()
         => SDL.RenderClear(_renderer);
+    public bool RenderPresent()
+        => SDL.RenderPresent(_renderer);
 }
