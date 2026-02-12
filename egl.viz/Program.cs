@@ -16,16 +16,17 @@ internal class Program
         // ConwayGame game = new(new ConwayReplicationRule(x => x.IsOdd()));
         // bool[,] board = new bool[800, 600];
         // board[13, 99] = true;
+        int width = 1920, height = 1080;
         int scale = 2;
-        using SdlWindow window = new("EGL", 1920 / scale, 1080 / scale);
+        using SdlWindow window = new("Evolutionary Game of Life", width / scale, height / scale);
         EvolutionReplicationRule rule = new(0.0001, 8);
-        EvolvableCell[,] board = new EvolvableCell[1920 / scale, 1080 / scale];
+        EvolvableCell[,] board = new EvolvableCell[width / scale, height / scale];
         foreach ((int x, int y) in board.AllPoints())
             board[x, y] = rule.DEAD;
         EvolutionGame evolutionGame = new(rule, new());
         // todo: _alternative_ game where genotypes have a fixed number of alleles so you have e.g. [2,3] and [2,6] rules but no [2,3,4]
         // also something is leaking memory real bad ~~(probably the rect structs)~~ actually definitely not the rect structs but those should be checked too
-        board[1920 / scale / 2, 1080 / scale / 2] = EvolvableCell.FromBools(true, [true, false, true, false, false, false, false, false, false]);
+        board[width / scale / 2, height / scale / 2] = EvolvableCell.FromBools(true, [true, false, true, false, false, false, false, false, false]);
         while (window.Pump())
         {
             DrawBoard(board, window, scale);

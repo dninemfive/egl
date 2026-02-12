@@ -10,7 +10,7 @@ public class EvolutionReplicationRule(double mutationRate, int maxMutations, int
     public int MaxMutations = maxMutations;
     public double MutationRate => mutationRate;
     public Random Random => random ?? new();
-    public readonly EvolvableCell DEAD = EvolvableCell.FromBools(true, [false, true, true, .. false.Repeat(6)]);
+    public readonly EvolvableCell DEAD = EvolvableCell.FromBools(false, [false, true, true, .. false.Repeat(6)]);
     public EvolvableCell Successor(EvolvableCell self, IEnumerable<EvolvableCell> neighbors)
     {
         IEnumerable<EvolvableCell> aliveNeighbors = neighbors.Where(x => x.IsAlive);

@@ -8,7 +8,7 @@
     <IsPackable>false</IsPackable>
     <RootNamespace>d9.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
     <AssemblyName>$(MSBuildProjectName)</AssemblyName>
-	<IsTestProject>true</IsTestProject>
+	  <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>
