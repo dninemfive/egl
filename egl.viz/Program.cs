@@ -25,7 +25,7 @@ internal class Program
         board[width / scale / 2, height / scale / 2] = EvolvableCell.FromBools(true, [true, false, true, false, false, false, false, false, false]);
         while (window.Pump())
         {
-            renderer.Render(board);
+            window.DrawFrame(((IBoardRenderer<EvolvableCell[,]>)renderer).Render(board));
             board = evolutionGame.Successor(board);
         }
     }
