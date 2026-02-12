@@ -18,7 +18,7 @@ public class Genotype(bool[] rule, Random? random = null)
         {
             if (Random.NextDouble() > mutationRate)
                 break;
-            result[Random.Next(0, 7)] = Random.Bool();
+            result[Random.Next(0, Rule.Length)] = Random.Bool();
         }
         return new(result, Random);
     }

@@ -23,11 +23,11 @@ internal class Program
             board[x, y] = new(false, new([.. false.Repeat(9)]));
         EvolutionGame evolutionGame = new(
             new(x => {
-                return 0.1;
+                return 0.001;
                 int alleles = x.Rule.Rule.Sum(x => x ? 1 : 0);
                 return alleles / 9.0 + 0.1;
             }), new());
-        board[1920 / scale / 2, 1080 / scale / 2] = new(true, new([true, false, true, false, true, false, false, false, false]));
+        board[1920 / scale / 2, 1080 / scale / 2] = new(true, new([true, false, true, false, false, false, false, false, false]));
         while (window.Pump())
         {
             DrawBoard(board, window, scale);
