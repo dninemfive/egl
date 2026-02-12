@@ -1,2 +1,2 @@
 ﻿namespace d9.egl.core.Instance.Evolution;
-public record EvolvableCell(bool IsAlive, EvolvableReproductionRule Rule);
+public record EvolvableCell(bool IsAlive, Genotype Rule);

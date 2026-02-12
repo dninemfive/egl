@@ -1,20 +1,20 @@
 ﻿namespace d9.egl.core.Instance.Evolution;
-public class EvolvableReproductionRule(bool[] rule, Random? random = null)
+public class Genotype(bool[] rule, Random? random = null)
 {
     public Random Random = random ?? new();
     public readonly bool[] Rule = rule;
-    public EvolvableReproductionRule BreedWith(EvolvableReproductionRule mate)
+    public Genotype BreedWith(Genotype mate)
     {
         bool[] result = new bool[Rule.Length];
         for (int i = 0; i < Rule.Length; i++)
             result[i] = Random.Bool() ? Rule[i] : mate.Rule[i];
         return new(result, Random);
     }
-    public EvolvableReproductionRule Mutate(double mutationRate)
+    public Genotype Mutate(double mutationRate)
     {
         bool[] result = new bool[Rule.Length];
         Rule.CopyTo(result, 0);
-        while (true)
+        for(int i = 0; i < Rule.Length; i++)
         {
             if (Random.NextDouble() > mutationRate)
                 break;
