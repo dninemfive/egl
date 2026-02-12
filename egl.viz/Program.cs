@@ -17,7 +17,7 @@ internal class Program
         // bool[,] board = new bool[800, 600];
         // board[13, 99] = true;
         int scale = 2;
-        using SdlWindow window = new("test", 1920 / scale, 1080 / scale);
+        using SdlWindow window = new("EGL", 1920 / scale, 1080 / scale);
         EvolutionReplicationRule rule = new(0.0001, 8);
         EvolvableCell[,] board = new EvolvableCell[1920 / scale, 1080 / scale];
         foreach ((int x, int y) in board.AllPoints())
