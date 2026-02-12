@@ -32,4 +32,10 @@ public partial class SdlRenderer
                          float.CreateTruncating(y),
                          float.CreateTruncating(width),
                          float.CreateTruncating(height)));
+    public bool SquareAt(float x, float y, int size)
+    {
+        if (size == 1)
+            return DrawPoint(x, y);
+        return FillRect(x, y, size, size);
+    }
 }

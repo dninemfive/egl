@@ -1,5 +1,4 @@
-﻿using d9.utl;
-using Hexa.NET.SDL3;
+﻿using Hexa.NET.SDL3;
 
 namespace d9.egl.viz.util;
 public partial class SdlWindow

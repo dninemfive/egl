@@ -24,4 +24,12 @@ public partial class SdlWindow
                 return false;
         return true;
     }
+    public void DrawFrame(Action<SdlWindow> callback, RgbaColor? clearColor = null)
+    {
+        clearColor ??= RgbaColor.Black;
+        Render.SetColor(clearColor);
+        Render.Clear();
+        callback(this);
+        Render.Present();
+    }
 }
