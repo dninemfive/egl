@@ -8,9 +8,12 @@ public class EvolutionReplicationRule(Func<EvolvableCell, double> mutationRate)
     public EvolvableCell Successor(EvolvableCell self, IEnumerable<EvolvableCell> neighbors)
     {
         IEnumerable<EvolvableCell> aliveNeighbors = neighbors.Where(x => x.IsAlive);
+        bool previouslyAlive = self.IsAlive;
         bool alive = self.Rule.Rule[aliveNeighbors.Count()];
         if (!alive)
             return new(false, new([false, true, true, ..false.Repeat(6)]));
+        if (!previouslyAlive && aliveNeighbors.Any())
+            self = aliveNeighbors.RandomElement();
         Genotype rule = self.Rule.Mutate(mutationRate(self));
         if (aliveNeighbors.Any())
             rule = rule.BreedWith(aliveNeighbors.WeightedRandomElement(x => rule.DifferenceFrom(x.Rule)).Rule);
