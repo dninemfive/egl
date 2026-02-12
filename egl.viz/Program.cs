@@ -20,7 +20,13 @@ internal class Program
         EvolvableCell[,] board = new EvolvableCell[800, 600];
         foreach ((int x, int y) in board.AllPoints())
             board[x, y] = new(false, new([.. false.Repeat(9)]));
-        EvolutionGame evolutionGame = new(new(x => (Math.Pow(x.Rule.Rule.Sum(x => x ? 1 : 0) / 3.0 - 1, 2)) / 2.0), new());
+        EvolutionGame evolutionGame = new(
+            new(x => {
+                int neighbors = x.Rule.Rule.Sum(x => x ? 1 : 0);
+                if (neighbors > 6) 
+                    return 0;
+                return Math.Pow(neighbors / 4.0 - 1, 2) / 100.0 + 0.01;
+            }), new());
         while (window.Pump())
         {
             DrawBoard(board, window);
