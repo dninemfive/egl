@@ -8,7 +8,7 @@ public class ConwayGame(ConwayReplicationRule rule)
         bool[,] next = new bool[state.GetLength(0), state.GetLength(1)];
         foreach ((int x, int y) in state.AllPoints())
         {
-            next[x, y] = Rule.Successor(NeighborGetter.NeighborsOf(state, (x, y)));
+            next[x, y] = Rule.Successor(state[x, y], NeighborGetter.NeighborsOf(state, (x, y)));
         }
         return next;
     }

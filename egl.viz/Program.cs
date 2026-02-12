@@ -1,7 +1,10 @@
 ﻿using d9.egl.core;
 using d9.egl.core.Instance.Conway;
+using d9.egl.core.Instance.Evolution;
 using d9.egl.viz.util;
+using d9.utl;
 using d9.utl.types;
+using Hexa.NET.SDL3;
 
 namespace d9.egl.viz;
 
@@ -10,35 +13,47 @@ internal class Program
     [STAThread]
     private static void Main()
     {
-        ConwayGame game = new(new ConwayReplicationRule(new DefaultDictionary<int, bool>(_ => true)
-        {
-            { 0, false },
-            { 1, true },
-            { 2, true },
-            { 3, true },
-            { 4, false },
-            { 5, true },
-            { 6, false },
-            { 7, true },
-            { 8, false },
-        }));
+        // ConwayGame game = new(new ConwayReplicationRule(x => x.IsOdd()));
         using SdlWindow window = new("test", 800, 600);
-        bool[,] board = new bool[800, 600];
-        board[13, 99] = true;
+        // bool[,] board = new bool[800, 600];
+        // board[13, 99] = true;
+        EvolvableCell[,] board = new EvolvableCell[800, 600];
+        foreach ((int x, int y) in board.AllPoints())
+            board[x, y] = new(false, new([.. false.Repeat(9)]));
+        EvolutionGame evolutionGame = new(new(x => (Math.Pow(x.Rule.Rule.Sum(x => x ? 1 : 0) / 4.0 - 1, 2)) / 2.0), new());
         while (window.Pump())
         {
             DrawBoard(board, window);
-            board = game.Successor(board);
+            board = evolutionGame.Successor(board);
         }
     }
     private static void DrawBoard(bool[,] board, SdlWindow window)
     {
-        window.Render.SetColor(0, 0, 0);
+        window.Render.SetColor(new HsvColor(0, 0.9, 0.1).ToRgba());
         window.Render.Clear();
-        window.Render.SetColor(255, 255, 255);
+        window.Render.SetColor(new HsvColor(0.5, 0.9, 0.9).ToRgba());
         foreach((int x, int y) in board.AllPoints())
             if (board[x, y])
                 window.Render.DrawPoint(x, y);
         window.Render.Present();
+    }
+    private static void DrawBoard(EvolvableCell[,] board, SdlWindow window)
+    {
+        // treat rule as a number in 0 .. 2^8 = H
+        // S = 0.9
+        // V = IsAlive ? 0.1 : 0.9
+        window.Render.SetColor(0, 0, 0);
+        window.Render.Clear();
+        foreach((int x, int y) in board.AllPoints())
+        {
+            window.Render.SetColor(CellColor(board[x, y]));
+            window.Render.DrawPoint(x, y);
+        }
+        window.Render.Present();
+    }
+    private static DefaultDictionary<bool[], double> _hueCache = new(x => x.ToHue());
+    private static HsvColor CellColor(EvolvableCell cell)
+    {
+        return new(_hueCache[cell.Rule.Rule], 0.9, cell.IsAlive ? 0.9 : 0.1);
     }
 }

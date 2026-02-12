@@ -21,4 +21,6 @@ public static class Extensions
                     yield return (x + x2, y + y2);
             }
     }
+    public static bool Bool(this Random random)
+        => random.NextDouble() < 0.5;
 }

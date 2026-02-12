@@ -7,4 +7,10 @@
     <RootNamespace>d9.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="utl">
+      <HintPath>..\..\utl\utl\bin\Release\net8.0\utl.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
