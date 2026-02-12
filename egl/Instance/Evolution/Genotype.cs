@@ -6,7 +6,7 @@ public class Genotype(bool[] rule, Random? random = null)
     public Genotype BreedWith(Genotype mate)
     {
         bool[] result = new bool[Rule.Length];
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < Rule.Length; i++)
             result[i] = Random.Bool() ? Rule[i] : mate.Rule[i];
         return new(result, Random);
     }
@@ -14,11 +14,11 @@ public class Genotype(bool[] rule, Random? random = null)
     {
         bool[] result = new bool[Rule.Length];
         Rule.CopyTo(result, 0);
-        for(int i = 0; i < 6; i++)
+        for(int i = 0; i < Rule.Length; i++)
         {
             if (Random.NextDouble() > mutationRate)
                 break;
-            result[Random.Next(0, Rule.Length)] = Random.Bool();
+            result[Random.Next(0, 7)] = Random.Bool();
         }
         return new(result, Random);
     }
