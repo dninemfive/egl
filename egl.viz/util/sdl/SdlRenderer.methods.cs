@@ -14,8 +14,6 @@ public partial class SdlRenderer
         => SetColor(color.ToRgba());
     public bool DrawPoint(float x, float y)
         => SDL.RenderPoint(_renderer, x, y);
-    public bool DrawPoint(double x, double y)
-        => SDL.RenderPoint(_renderer, float.CreateTruncating(x), float.CreateTruncating(y));
     public bool Clear()
         => SDL.RenderClear(_renderer);
     public bool Present()

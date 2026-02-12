@@ -14,20 +14,18 @@ internal class Program
     private static void Main()
     {
         // ConwayGame game = new(new ConwayReplicationRule(x => x.IsOdd()));
-        using SdlWindow window = new("test", 800, 600);
         // bool[,] board = new bool[800, 600];
         // board[13, 99] = true;
-        int scale = 3;
+        int scale = 2;
+        using SdlWindow window = new("test", 1920 / scale, 1080 / scale);
+        EvolutionReplicationRule rule = new(0.0001, 8);
         EvolvableCell[,] board = new EvolvableCell[1920 / scale, 1080 / scale];
         foreach ((int x, int y) in board.AllPoints())
-            board[x, y] = new(false, new([.. false.Repeat(9)]));
-        EvolutionGame evolutionGame = new(
-            new(x => {
-                return 0.0001;
-                int alleles = x.Rule.Rule.Sum(x => x ? 1 : 0);
-                return alleles / 9.0 + 0.1;
-            }), new());
-        board[1920 / scale / 2, 1080 / scale / 2] = new(true, new([true, false, true, false, false, false, false, false, false]));
+            board[x, y] = rule.DEAD;
+        EvolutionGame evolutionGame = new(rule, new());
+        // todo: _alternative_ game where genotypes have a fixed number of alleles so you have e.g. [2,3] and [2,6] rules but no [2,3,4]
+        // also something is leaking memory real bad ~~(probably the rect structs)~~ actually definitely not the rect structs but those should be checked too
+        board[1920 / scale / 2, 1080 / scale / 2] = EvolvableCell.FromBools(true, [true, false, true, false, false, false, false, false, false]);
         while (window.Pump())
         {
             DrawBoard(board, window, scale);
@@ -55,14 +53,11 @@ internal class Program
         {
             if (!board[x, y].IsAlive)
                 continue;
-            window.Render.SetColor(CellColor(board[x, y]));
-            window.Render.FillRect(x * scale, y * scale, scale, scale);
+            window.Render.SetColor(_colors[board[x, y]]);
+            // window.Render.FillRect(x * scale, y * scale, scale, scale);
+            window.Render.DrawPoint(x, y);
         }
         window.Render.Present();
     }
-    private static DefaultDictionary<bool[], double> _hueCache = new(x => x.ToHue());
-    private static HsvColor CellColor(EvolvableCell cell)
-    {
-        return new(_hueCache[cell.Rule.Rule], 0.9, cell.IsAlive ? 0.9 : 0.1);
-    }
+    private static readonly DefaultDictionary<EvolvableCell, RgbaColor> _colors = new(x => new HsvColor(x.Rule / 512.0, 0.9, x.IsAlive ? 0.9 : 0.1).ToRgba());
 }
