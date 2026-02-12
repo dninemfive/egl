@@ -17,13 +17,13 @@ internal class Program
         using SdlWindow window = new("test", 800, 600);
         // bool[,] board = new bool[800, 600];
         // board[13, 99] = true;
-        int scale = 6;
+        int scale = 3;
         EvolvableCell[,] board = new EvolvableCell[1920 / scale, 1080 / scale];
         foreach ((int x, int y) in board.AllPoints())
             board[x, y] = new(false, new([.. false.Repeat(9)]));
         EvolutionGame evolutionGame = new(
             new(x => {
-                return 0.001;
+                return 0.0001;
                 int alleles = x.Rule.Rule.Sum(x => x ? 1 : 0);
                 return alleles / 9.0 + 0.1;
             }), new());
