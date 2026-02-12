@@ -13,7 +13,7 @@ public class EvolutionReplicationRule(Func<EvolvableCell, double> mutationRate)
             return new(false, new([false, true, true, ..false.Repeat(6)]));
         Genotype rule = self.Rule.Mutate(mutationRate(self));
         if (aliveNeighbors.Any())
-            rule = rule.BreedWith(aliveNeighbors.RandomElement().Rule);
+            rule = rule.BreedWith(aliveNeighbors.WeightedRandomElement(x => rule.DifferenceFrom(x.Rule)).Rule);
         return new(alive, rule);
     }
 }

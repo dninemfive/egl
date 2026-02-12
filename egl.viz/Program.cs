@@ -25,7 +25,7 @@ internal class Program
                 int alleles = x.Rule.Rule.Sum(x => x ? 1 : 0);
                 if (alleles == 0)
                     return 0.00001;
-                return Math.Pow(alleles / 4.0 - 1, 2) / 100.0 + 0.01;
+                return Math.Pow(alleles / 4.0 - 1, 2) / 10.0 + 0.01;
             }), new());
         board[400, 300] = new(true, new([true, true, true, false, false, false, false, false, false]));
         while (window.Pump())
@@ -53,6 +53,8 @@ internal class Program
         window.Render.Clear();
         foreach((int x, int y) in board.AllPoints())
         {
+            if (!board[x, y].IsAlive)
+                continue;
             window.Render.SetColor(CellColor(board[x, y]));
             window.Render.DrawPoint(x, y);
         }

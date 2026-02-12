@@ -22,4 +22,12 @@ public class Genotype(bool[] rule, Random? random = null)
         }
         return new(result, Random);
     }
+    public int DifferenceFrom(Genotype other)
+    {
+        int result = 0;
+        for (int i = 0; i < Rule.Length; i++)
+            if (other.Rule[i] != Rule[i])
+                result++;
+        return result;
+    }
 }
