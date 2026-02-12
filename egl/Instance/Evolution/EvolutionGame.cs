@@ -1,11 +1,9 @@
-﻿namespace d9.egl.core.Instance.Evolution;
+﻿using d9.egl.core.Interface;
+
+namespace d9.egl.core.Instance.Evolution;
 public class EvolutionGame(EvolutionReplicationRule rule, EvolutionaryNeighborGetter neighborGetter)
+    : IArray2DAutomaton<EvolvableCell, EvolutionaryNeighborGetter, EvolutionReplicationRule>
 {
-    public EvolvableCell[,] Successor(EvolvableCell[,] state)
-    {
-        EvolvableCell[,] next = new EvolvableCell[state.GetLength(0), state.GetLength(1)];
-        foreach ((int x, int y) in state.AllPoints())
-            next[x, y] = rule.Successor(state[x, y], neighborGetter.NeighborsOf(state, (x, y)));
-        return next;
-    }
+    public EvolutionReplicationRule Rule => rule;
+    public EvolutionaryNeighborGetter NeighborGetter => neighborGetter;
 }

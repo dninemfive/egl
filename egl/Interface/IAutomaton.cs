@@ -3,4 +3,5 @@ public interface IAutomaton<B, P, C, N, R>
     where N : INeighborGetter<B, P, C>
     where R : IReplicationRule<C>
 {
+    public Task<B> Successor(B state);
 }
